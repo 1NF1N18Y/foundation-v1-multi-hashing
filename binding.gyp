@@ -23,6 +23,7 @@
                 "algorithms/main/sha256d/sha256d.c",
                 "algorithms/main/skein/skein.c",
                 "algorithms/main/verthash/verthash.c",
+                "algorithms/main/x10/x10.c",
                 "algorithms/main/x11/x11.c",
                 "algorithms/main/x13/x13.c",
                 "algorithms/main/x15/x15.c",
