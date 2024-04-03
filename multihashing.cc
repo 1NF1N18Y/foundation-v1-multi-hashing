@@ -23,6 +23,7 @@
 #include "algorithms/main/sha256d/sha256d.h"
 #include "algorithms/main/skein/skein.h"
 #include "algorithms/main/verthash/verthash.h"
+#include "algorithms/main/x10/x10.h"
 #include "algorithms/main/x11/x11.h"
 #include "algorithms/main/x13/x13.h"
 #include "algorithms/main/x15/x15.h"
@@ -453,7 +454,25 @@ NAN_METHOD(verthash) {
   info.GetReturnValue().Set(Nan::CopyBuffer(output, 32).ToLocalChecked());
 }
 
-// X11 Algorithm
+// X10 Algorithm
+NAN_METHOD(x10) {
+
+  // Check Arguments for Errors
+  if (info.Length() < 1)
+    return THROW_ERROR_EXCEPTION("You must provide one argument.");
+
+  // Process/Define Passed Parameters
+  char * input = Buffer::Data(Nan::To<v8::Object>(info[0]).ToLocalChecked());
+  uint32_t input_len = Buffer::Length(Nan::To<v8::Object>(info[0]).ToLocalChecked());
+  char output[32];
+
+  // Hash Input Data and Return Output
+  x10_hash(input, output, input_len);
+  info.GetReturnValue().Set(Nan::CopyBuffer(output, 32).ToLocalChecked());
+}
+
+
+// X1 Algorithm
 NAN_METHOD(x11) {
 
   // Check Arguments for Errors
@@ -576,6 +595,7 @@ NAN_MODULE_INIT(init) {
   Nan::Set(target, Nan::New("sha256d").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(sha256d)).ToLocalChecked());
   Nan::Set(target, Nan::New("skein").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(skein)).ToLocalChecked());
   Nan::Set(target, Nan::New("verthash").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(verthash)).ToLocalChecked());
+  Nan::Set(target, Nan::New("x10").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x10)).ToLocalChecked());
   Nan::Set(target, Nan::New("x11").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x11)).ToLocalChecked());
   Nan::Set(target, Nan::New("x13").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x13)).ToLocalChecked());
   Nan::Set(target, Nan::New("x15").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x15)).ToLocalChecked());

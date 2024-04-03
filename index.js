@@ -146,6 +146,12 @@ module.exports = {
    * @param input {Buffer} Initial buffer to hash
    * @returns {Buffer} Hashing result
    */
+  'x10': algorithms.x10,
+
+  /**
+   * @param input {Buffer} Initial buffer to hash
+   * @returns {Buffer} Hashing result
+   */
   'x11': algorithms.x11,
 
   /**
